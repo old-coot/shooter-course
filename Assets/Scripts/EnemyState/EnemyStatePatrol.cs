@@ -4,15 +4,24 @@ using UnityEngine.AI;
 
 namespace shootercourse {
     public class EnemyStatePatrol : EnemyState {
-        [SerializeField] private PatrolManager _patrolManager;
-        [SerializeField] private NavMeshAgent _navMeshAgent;
 
         [SerializeField] private float _viewingDistance = 20f;
         [SerializeField] private float _viewingAngle = 50f;
 
-        [SerializeField] private Transform _playerCenter;
         [SerializeField] private LayerMask _layerMask;
-        [SerializeField] private Animator _animator;
+
+        private Transform _playerCenter;
+        private PatrolManager _patrolManager;
+        private NavMeshAgent _navMeshAgent;
+        private Animator _animator;
+
+        public void Init(Transform playerCenter, PatrolManager patrolManager, NavMeshAgent navMeshAgent, Animator animator, EnemyStateMachine stateMachine) {
+            _stateMachine = stateMachine;
+            _playerCenter = playerCenter;
+            _patrolManager = patrolManager;
+            _navMeshAgent = navMeshAgent;
+            _animator = animator;
+        }
 
         public override void Enter() {
             base.Enter();

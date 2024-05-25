@@ -5,6 +5,8 @@ namespace shootercourse {
     [ExecuteAlways]
     public class EnemyTargetPoint : MonoBehaviour {
 
+        [SerializeField] Color _color;
+
         private void Update() {
             if (Application.isPlaying) {
                 enabled = false;
@@ -19,7 +21,7 @@ namespace shootercourse {
         }
 
         private void OnDrawGizmos() {
-            Gizmos.color = Color.white;
+            Gizmos.color = _color;
             Gizmos.DrawCube(transform.position + new Vector3(0f, 0.5f, 0f), new Vector3(0.3f, 1f, 0.3f));
         }
 

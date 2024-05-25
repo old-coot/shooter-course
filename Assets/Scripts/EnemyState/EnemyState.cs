@@ -3,7 +3,7 @@ using UnityEngine;
 namespace shootercourse {
     public class EnemyState : MonoBehaviour {
 
-        [SerializeField] protected EnemyStateMachine _stateMachine;
+        protected EnemyStateMachine _stateMachine;
 
         public virtual void Enter() {
         }
