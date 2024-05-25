@@ -6,10 +6,24 @@ using UnityEngine.Animations.Rigging;
 namespace shootercourse {
     public class EnemyStateHitted : EnemyState {
 
-        [SerializeField] private NavMeshAgent _navMeshAgent;
-        [SerializeField] private Animator _animator;
         [SerializeField] private AnimationCurve _animationCurve;
-        [SerializeField] private Rig _rig;
+
+        private NavMeshAgent _navMeshAgent;
+        private Animator _animator;
+        private Rig _rig;
+
+        public void Init(
+            NavMeshAgent navMeshAgent,
+            Animator animator,
+            EnemyStateMachine stateMachine,
+            Rig rig) {
+            _stateMachine = stateMachine;
+            _navMeshAgent = navMeshAgent;
+            _animator = animator;
+            _rig = rig;
+        }
+
+
 
         public override void Enter() {
             base.Enter();

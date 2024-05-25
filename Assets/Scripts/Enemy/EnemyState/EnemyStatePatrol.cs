@@ -5,6 +5,9 @@ using UnityEngine.AI;
 namespace shootercourse {
     public class EnemyStatePatrol : EnemyState {
 
+        [SerializeField] private Transform _aim;
+        [SerializeField] private Transform _aimDefault;
+
         [SerializeField] private float _viewingDistance = 20f;
         [SerializeField] private float _viewingAngle = 50f;
 
@@ -15,7 +18,7 @@ namespace shootercourse {
         private NavMeshAgent _navMeshAgent;
         private Animator _animator;
 
-        public void Init(Transform playerCenter, PatrolManager patrolManager, NavMeshAgent navMeshAgent, Animator animator, EnemyStateMachine stateMachine) {
+        public void Init(EnemyStateMachine stateMachine, Transform playerCenter, PatrolManager patrolManager, NavMeshAgent navMeshAgent, Animator animator) {
             _stateMachine = stateMachine;
             _playerCenter = playerCenter;
             _patrolManager = patrolManager;
@@ -27,6 +30,7 @@ namespace shootercourse {
             base.Enter();
             _animator.SetBool("Walk", true);
             EnemyTargetPoint targetPoint = _patrolManager.GetRandomTarget();
+            _navMeshAgent.isStopped = false;
             _navMeshAgent.SetDestination(targetPoint.transform.position);
         }
 
@@ -36,6 +40,9 @@ namespace shootercourse {
 
         public override void Process() {
             base.Process();
+
+            _aim.position = Vector3.Lerp(_aim.position, _aimDefault.position, Time.deltaTime * 4f);
+
             if (_navMeshAgent.remainingDistance < 0.5f) {
                 EnemyTargetPoint targetPoint = _patrolManager.GetRandomTarget();
                 _navMeshAgent.SetDestination(targetPoint.transform.position);

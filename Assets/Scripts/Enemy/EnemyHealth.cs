@@ -23,6 +23,7 @@ namespace shootercourse {
         private void Die(EnemyBodyPart hittenPart, Vector3 direction) {
 
             enemyBodyPartManager.MakePhysical(hittenPart, direction);
+            _enemyStateMachine.StartDieState();
         }
     }
 }
